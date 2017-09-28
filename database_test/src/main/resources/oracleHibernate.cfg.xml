@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.show_sql">true</property>
+        <property name="dialect">org.hibernate.dialect.Oracle9iDialect</property>
+        <property name="connection.url">jdbc:oracle:thin:@10.128.0.45:1521:javatest</property>
+        <property name="connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
+        <property name="connection.username">javatest</property>
+        <property name="connection.password">nbs2o13</property>
+        <mapping class="com.vo.TestOracleUserVO"/>
+        <!--<mapping resource="com/oracle/User.hbm.xml"/>-->
+    </session-factory>
+</hibernate-configuration>

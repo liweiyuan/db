@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+        				">
+
+    <bean id="jdbcConfig" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:jdbc.properties</value>
+            </list>
+
+        </property>
+        <property name="ignoreUnresolvablePlaceholders" value="true"/>
+    </bean>
+
+
+    <!--<bean id="myDataSource"
+          class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiName">
+            <value>java:pcis</value>
+        </property>
+    </bean>-->
+    <!--jboss配置Jndi李伟元-->
+    <!--<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiName">
+            <value>java:MySqlDS</value>
+        </property>
+    </bean>-->
+
+    <bean id="mysqldataSourcedbcp" class="org.apache.commons.dbcp.BasicDataSource"
+          destroy-method="close">   <!-- com.mchange.v2.c3p0.ComboPooledDataSource -->
+        <property name="driverClassName" value="${mysql.driverClassName}"/>
+        <property name="url" value="${mysql.url}"/>
+        <property name="username" value="${mysql.username}"/>
+        <property name="password" value="${mysql.password}"/>
+
+    </bean>
+    <bean id="mysqldbcpjdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate"
+          p:dataSource-ref="mysqldataSourcedbcp"/>
+    <bean id="db2dataSourcedbcp" class="org.apache.commons.dbcp.BasicDataSource"
+          destroy-method="close"> 
+        <property name="driverClassName" value="${db2.driverClassName}"/>
+        <property name="url" value="${db2.url}"/>
+        <property name="username" value="${db2.username}"/>
+        <property name="password" value="${db2.password}"/>
+    </bean>
+    <bean id="db2dbcpjdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate"
+          p:dataSource-ref="db2dataSourcedbcp"/>
+    <bean id="oracledataSourcedbcp" class="org.apache.commons.dbcp.BasicDataSource"
+          destroy-method="close"> 
+        <property name="driverClassName" value="${oracle.driverClassName}"/>
+        <property name="url" value="${oracle.url}"/>
+        <property name="username" value="${oracle.username}"/>
+        <property name="password" value="${oracle.password}"/>
+    </bean>
+    <bean id="oracledbcpjdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate"
+          p:dataSource-ref="oracledataSourcedbcp"/>
+     <bean id="postgresqldataSourcedbcp" class="org.apache.commons.dbcp.BasicDataSource"
+          destroy-method="close"> 
+        <property name="driverClassName" value="${postgresql.driverClassName}"/>
+        <property name="url" value="${postgresql.url}"/>
+        <property name="username" value="${postgresql.username}"/>
+        <property name="password" value="${postgresql.password}"/>
+    </bean>
+    <bean id="postgresqldbcpjdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate"
+          p:dataSource-ref="postgresqldataSourcedbcp"/>
+    <bean id="sqlserverdataSourcedbcp" class="org.apache.commons.dbcp.BasicDataSource"
+          destroy-method="close"> 
+        <property name="driverClassName" value="${sqlserver.driverClassName}"/>
+        <property name="url" value="${sqlserver.url}"/>
+        <property name="username" value="${sqlserver.username}"/>
+        <property name="password" value="${sqlserver.password}"/>
+    </bean>
+    <bean id="sqlserverdbcpjdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate"
+          p:dataSource-ref="sqlserverdataSourcedbcp"/>          
+    
+    
+    <bean id="mysqldataSourcec3p0" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+        <!-- com.mchange.v2.c3p0.ComboPooledDataSource -->
+        <property name="driverClass" value="${mysql.driverClassName}"/>
+        <property name="jdbcUrl" value="${mysql.url}"/>
+        <property name="user" value="${mysql.username}"/>
+        <property name="password" value="${mysql.password}"/>
+         <property name="checkoutTimeout" value="300"/>
+        <property name="maxPoolSize" value="500" />
+        <property name="acquireIncrement" value="10" />
+        <property name="initialPoolSize" value="10" />
+        <property name="minPoolSize" value="20" />
+        <property name="maxIdleTime" value="120" />
+        <property name="autoCommitOnClose" value="false" />
+        <!-- property name="checkoutTimeout" value="${c3p0.checkoutTimeout:300}" / -->
+        <property name="maxIdleTimeExcessConnections" value="60" />
+        <property name="idleConnectionTestPeriod" value="80" />
+   <!-- <property name="checkoutTimeout" value="${c3p0.checkoutTimeout:300}"/>-->
+    </bean>
+    <bean id="mysqlc3p0jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate"
+          p:dataSource-ref="mysqldataSourcec3p0"/>
+       
+    <bean id="db2dataSourcec3p0" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+          destroy-method="close">  
+        <property name="driverClass" value="${db2.driverClassName}"/>
+        <property name="jdbcUrl" value="${db2.url}"/>
+        <property name="user" value="${db2.username}"/>
+        <property name="password" value="${db2.password}"/>
+    </bean>
+    <bean id="db2c3p0jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate"
+          p:dataSource-ref="db2dataSourcec3p0"/>
+    <bean id="oracledataSourcec3p0" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+          destroy-method="close">  
+        <property name="driverClass" value="${oracle.driverClassName}"/>
+        <property name="jdbcUrl" value="${oracle.url}"/>
+        <property name="user" value="${oracle.username}"/>
+        <property name="password" value="${oracle.password}"/>
+    </bean>
+    <bean id="oraclec3p0jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate"
+          p:dataSource-ref="oracledataSourcec3p0"/>
+     <bean id="postgresqldataSourcec3p0" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+          destroy-method="close">
+        <property name="driverClass" value="${postgresql.driverClassName}"/>
+        <property name="jdbcUrl" value="${postgresql.url}"/>
+        <property name="user" value="${postgresql.username}"/>
+        <property name="password" value="${postgresql.password}"/>
+    </bean>
+    <bean id="postgresqlc3p0jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate"
+          p:dataSource-ref="postgresqldataSourcec3p0"/>     
+    <bean id="sqlserverdataSourcec3p0" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+          destroy-method="close">  
+        <property name="driverClass" value="${sqlserver.driverClassName}"/>
+        <property name="jdbcUrl" value="${sqlserver.url}"/>
+        <property name="user" value="${sqlserver.username}"/>
+        <property name="password" value="${sqlserver.password}"/>
+    </bean>
+    <bean id="sqlserverc3p0jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate"
+          p:dataSource-ref="sqlserverdataSourcec3p0"/>
+                     
+    <bean id="mysqldataSourceproxool" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName">
+            <value>org.logicalcobwebs.proxool.ProxoolDriver</value>
+        </property>
+        <property name="url">
+            <value>proxool.mysql</value>
+        </property>
+    </bean>
+    <!-- 閰嶇疆Jdbc Template -->
+    <bean id="mysqlproxooljdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <constructor-arg ref="mysqldataSourceproxool">
+        </constructor-arg>
+    </bean>
+    <bean id="db2dataSourceproxool" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName">
+            <value>org.logicalcobwebs.proxool.ProxoolDriver</value>
+        </property>
+        <property name="url">
+            <value>proxool.db2</value>
+        </property>
+    </bean>
+    <bean id="db2proxooljdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <constructor-arg ref="db2dataSourceproxool">
+        </constructor-arg>
+    </bean>
+    <bean id="oracledataSourceproxool" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName">
+            <value>org.logicalcobwebs.proxool.ProxoolDriver</value>
+        </property>
+        <property name="url">
+            <value>proxool.oracle</value>
+        </property>
+    </bean>
+    <bean id="oracleproxooljdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <constructor-arg ref="oracledataSourceproxool">
+        </constructor-arg>
+    </bean>
+    <bean id="postgresqldataSourceproxool" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName">
+            <value>org.logicalcobwebs.proxool.ProxoolDriver</value>
+        </property>
+        <property name="url">
+            <value>proxool.postgresql</value>
+        </property>
+    </bean>
+    <bean id="postgresqlproxooljdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <constructor-arg ref="postgresqldataSourceproxool">
+        </constructor-arg>
+    </bean>
+    <bean id="sqlserverdataSourceproxool" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName">
+            <value>org.logicalcobwebs.proxool.ProxoolDriver</value>
+        </property>
+        <property name="url">
+            <value>proxool.sqlserver</value>
+        </property>
+    </bean>
+    <bean id="sqlserverproxooljdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <constructor-arg ref="sqlserverdataSourceproxool">
+        </constructor-arg>
+    </bean>
+    <!--hikariCp-->
+    <!--<bean id="hikariCPDataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+        <constructor-arg>
+            <bean class="com.zaxxer.hikari.HikariConfig">
+                <property name="driverClassName" value="${mysql.driverClassName}"/>
+                <property name="jdbcUrl" value="${mysql.url}"/>
+                <property name="username" value="${mysql.username}"/>
+                <property name="password" value="${mysql.password}"/>
+                <property name="connectionTestQuery" value="select 1"/>
+                <property name="connectionTimeout" value="30000"/>
+                <property name="idleTimeout" value="3000"/>
+                <property name="maxLifetime" value="300000"/>
+                <property name="maximumPoolSize" value="2"/>
+                <property name="minimumIdle" value="1"/>
+            </bean>
+        </constructor-arg>
+    </bean>
+    <bean id="hikariCPDataSourceJdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate"
+          p:dataSource-ref="hikariCPDataSource"/>-->
+    <!---->
+    <bean id="dataSourceMysql" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="${mysql.driverClassName}"></property>
+        <property name="url" value="${mysql.url}"></property>
+        <property name="username" value="${mysql.username}"></property>
+        <property name="password" value="${mysql.password}"></property>
+    </bean>
+    <bean id="MysqlTemplate" class="org.springframework.jdbc.core.JdbcTemplate" p:dataSource-ref="dataSourceMysql"/>
+
+    <bean id="dataSourceOracle" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="${oracle.driverClassName}"></property>
+        <property name="url" value="${oracle.url}"></property>
+        <property name="username" value="${oracle.username}"></property>
+        <property name="password" value="${oracle.password}"></property>
+    </bean>
+    <bean id="OracleTemplate" class="org.springframework.jdbc.core.JdbcTemplate" p:dataSource-ref="dataSourceOracle"/>
+
+    <bean id="dataSourceDb2" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="${db2.driverClassName}"></property>
+        <property name="url" value="${db2.url}"></property>
+        <property name="username" value="${db2.username}"></property>
+        <property name="password" value="${db2.password}"></property>
+    </bean>
+    <bean id="Db2Template" class="org.springframework.jdbc.core.JdbcTemplate" p:dataSource-ref="dataSourceDb2"/>
+
+    <bean id="dataSourcePostgresql" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="${postgresql.driverClassName}"></property>
+        <property name="url" value="${postgresql.url}"></property>
+        <property name="username" value="${postgresql.username}"></property>
+        <property name="password" value="${postgresql.password}"></property>
+    </bean>
+    <bean id="PostgresqlTemplate" class="org.springframework.jdbc.core.JdbcTemplate"
+          p:dataSource-ref="dataSourcePostgresql"/>
+    <bean id="dataSourceSqlserver" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="${sqlserver.driverClassName}"></property>
+        <property name="url" value="${sqlserver.url}"></property>
+        <property name="username" value="${sqlserver.username}"></property>
+        <property name="password" value="${sqlserver.password}"></property>
+    </bean>
+    <bean id="SqlserverTemplate" class="org.springframework.jdbc.core.JdbcTemplate" p:dataSource-ref="dataSourceSqlserver"/>
+    
+    <bean id="druidDSPostgresql" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="${postgresql.driverClassName}"></property>
+        <property name="url" value="${postgresql.url}"></property>
+        <property name="username" value="${postgresql.username}"></property>
+        <property name="password" value="${postgresql.password}"></property>
+    </bean>
+    <bean id="druidDSMysql" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="${mysql.driverClassName}"></property>
+        <property name="url" value="${mysql.url}"></property>
+        <property name="username" value="${mysql.username}"></property>
+        <property name="password" value="${mysql.password}"></property>
+    </bean>
+    <bean id="druidDSOracle" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="${oracle.driverClassName}"></property>
+        <property name="url" value="${oracle.url}"></property>
+        <property name="username" value="${oracle.username}"></property>
+        <property name="password" value="${oracle.password}"></property>
+    </bean>
+    <bean id="druidDSDb2" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="${db2.driverClassName}"></property>
+        <property name="url" value="${db2.url}"></property>
+        <property name="username" value="${db2.username}"></property>
+        <property name="password" value="${db2.password}"></property>
+    </bean>
+    
+
+    <bean id="druidDSSqlserver" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="${sqlserver.driverClassName}"></property>
+        <property name="url" value="${sqlserver.url}"></property>
+        <property name="username" value="${sqlserver.username}"></property>
+        <property name="password" value="${sqlserver.password}"></property>
+    </bean>
+</beans>

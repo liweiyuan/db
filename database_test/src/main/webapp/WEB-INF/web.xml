@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+		  http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+         version="2.5">
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+    <display-name>test_database</display-name>
+    <!-- jndi start -->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:applicationContext.xml</param-value>
+    </context-param>
+
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    <!-- jndi end -->
+    <servlet>
+        <servlet-name>spring</servlet-name>
+        <servlet-class>
+            org.springframework.web.servlet.DispatcherServlet
+        </servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:applicationContext.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>spring</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+    <!-- 管理proxool配置文件 -->
+    <servlet>
+        <servlet-name>proxoolServletConfigurator</servlet-name>
+        <servlet-class>org.logicalcobwebs.proxool.configuration.ServletConfigurator</servlet-class>
+        <init-param>
+            <param-name>propertyFile</param-name><!-- xmlFile -->
+            <param-value>WEB-INF\classes\proxool.properties</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet>
+        <servlet-name>Admin</servlet-name>
+        <servlet-class>org.logicalcobwebs.proxool.admin.servlet.AdminServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Admin</servlet-name>
+        <url-pattern>/admin.proxool</url-pattern>
+    </servlet-mapping>
+
+
+    <!--李伟元-->
+    <!--引用Jndi配置数据源-->
+    <!--
+       JNDI配置的资源引用：
+      • res-ref-name：表示引用资源的名称
+      • res-type：此资源对应的类型为javax.sql.DataSource
+      • res-auth：容器授权管理
+    -->
+    <!--MySQL数据库JNDI数据源引用 -->
+    <!--<resource-ref>
+       &lt;!&ndash; <description>Mysql DB Connection</description>&ndash;&gt;
+        <res-ref-name>mysqlDataSource</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+    </resource-ref>-->
+
+
+    <servlet>
+        <servlet-name>dm</servlet-name>
+        <servlet-class>com.dm.controller.DMServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>dm</servlet-name>
+        <url-pattern>/dmJDBC</url-pattern>
+    </servlet-mapping>
+
+</web-app>

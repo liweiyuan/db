@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+    "-//Hibernate/Hibernate Configuration DTD//EN"
+    "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.show_sql">true</property>
+    <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+    <property name="connection.url">jdbc:mysql://10.128.0.47:3306/javatest</property>
+    <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="connection.username">root</property>
+    <property name="connection.password">tingyun2o13</property>
+    <mapping class="com.vo.TestMysqlUserVO"/>
+<!--
+    <property name="connection.url">jdbc:db2://192.168.2.129:50000/test1</property>
+    <property name="connection.driver_class">com.ibm.db2.jcc.DB2Driver</property>
+    <property name="connection.username">db2inst1</property>
+    <property name="connection.password">nbs2o13</property>
+    <mapping class="com.db2.TestUserEntity"/>
+-->
+    <!--    <property name="connection.url">jdbc:oracle:thin:@192.168.2.129:1521:orcl</property>
+        <property name="connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
+        <property name="connection.username">root</property>
+        <property name="connection.password">nbs2o13</property>
+        <mapping class="com.oracle.TestUserEntity"/>-->
+
+    <!--    <property name="connection.url">jdbc:postgresql://192.168.2.129:5432/javatest</property>
+        <property name="connection.driver_class">org.postgresql.Driver</property>
+        <property name="connection.username">postgres</property>
+        <property name="connection.password">nbs2o13</property>
+        <mapping class="com.postgresql.TestUserEntity"/>-->
+
+    <!-- DB schema will be updated if needed -->
+    <!-- <property name="hbm2ddl.auto">update</property>-->
+    <!--<mapping class="com.oracle.TestUserEntity"></mapping>-->
+  </session-factory>
+</hibernate-configuration>
